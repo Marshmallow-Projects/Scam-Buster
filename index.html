@@ -30,7 +30,8 @@
     }
 
     h1 {
-      margin: 0;
+      margin: 20px 0 10px;
+      text-align: center;
     }
 
     .search-container {
@@ -68,14 +69,45 @@
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
 
-    a {
-      color: #004080;
-      text-decoration: none;
+    .pdf-title {
       font-weight: bold;
+      color: #004080;
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .pdf-title i {
+      margin-right: 8px;
+      color: #e03c31;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .button-group button,
+    .button-group a button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .view-btn {
+      background-color: #004080;
+    }
+
+    .download-btn {
+      background-color: #006400;
+    }
+
+    .share-btn {
+      background-color: #333;
     }
 
     #noResults {
@@ -94,61 +126,115 @@
     }
   </style>
 <!-- End of CSS code -->
-  
+
 </head>
 <body>
+
 <div class="search-container">
   <input type="text" id="searchInput" placeholder="Search Scam Report PDFs..." onkeyup="filterPDFs()" />
 </div>
-  <h1>Scam Reports</h1>
-  <div id="content">
+
+<h1>Scam Reports</h1>
+
+<div id="content">
   <ul id="pdfList">
-    <li><i class="fas fa-file-pdf" style="color: #e03c31; margin-right: 8px;"></i><a href="omegatons.pdf" target="_blank">Omegatons</a></li>
-    <li><i class="fas fa-file-pdf" style="color: #e03c31; margin-right: 6px;"></i><a href="file2.pdf" target="_blank">File 2</a></li>
+    <li>
+      <div class="pdf-title">
+        <i class="fas fa-file-pdf"></i> Omegatons
+      </div>
+      <div class="button-group">
+        <!-- View Button -->
+        <a href="omegatons.pdf" target="_blank">
+          <button class="view-btn"><i class="fas fa-eye"></i> View</button>
+        </a>
+        <!-- Download Button -->
+        <a href="omegatons.pdf" download>
+          <button class="download-btn"><i class="fas fa-download"></i> Download</button>
+        </a>
+        <!-- Share Button -->
+        <button class="share-btn" onclick="sharePDF('omegatons.pdf')"><i class="fas fa-share"></i> Share</button>
+      </div>
+    </li>
+
+    <li>
+      <div class="pdf-title">
+        <i class="fas fa-file-pdf"></i> File 2
+      </div>
+      <div class="button-group">
+        <a href="file2.pdf" target="_blank">
+          <button class="view-btn"><i class="fas fa-eye"></i> View</button>
+        </a>
+        <a href="file2.pdf" download>
+          <button class="download-btn"><i class="fas fa-download"></i> Download</button>
+        </a>
+        <button class="share-btn" onclick="sharePDF('file2.pdf')"><i class="fas fa-share"></i> Share</button>
+      </div>
+    </li>
   </ul>
-    <div id="noResults">No files found.</div>
-  </div>
-  
+
+  <div id="noResults">No files found.</div>
+</div>
+
 <!--  Social messaging for Scam research  -->
 <div style="text-align: center; margin-top: 40px;">
   <p><strong>Need more Reports? Message us directly:</strong></p>
 
   <a href="https://wa.me/97460011593" target="_blank" style="margin: 5px;">
-    <button style="background-color: #25D366; color: white; padding: 10px 15px; border: none; border-radius: 4px;"><i class="fab fa-whatsapp" style="margin-right: 8px;"></i> WhatsApp</button>
+    <button style="background-color: #25D366; color: white; padding: 10px 15px; border: none; border-radius: 4px;">
+      <i class="fab fa-whatsapp" style="margin-right: 8px;"></i> WhatsApp
+    </button>
   </a>
 
-  <a href="https://twitter.com/YourUsername" target="_blank" style="margin: 10px;">
-    <button style="background-color: #000000; color: white; padding: 10px 20px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer;"><i class="fab fa-x-twitter" style="margin-right: 8px;"></i>X</button>
+  <a href="https://twitter.com/YourUsername" target="_blank" style="margin: 5px;">
+    <button style="background-color: #000000; color: white; padding: 10px 20px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer;">
+      <i class="fab fa-x-twitter" style="margin-right: 8px;"></i> X
+    </button>
   </a>
 
   <a href="https://instagram.com/YourUsername" target="_blank" style="margin: 5px;">
-    <button style="background-color: #C13584; color: white; padding: 10px 15px; border: none; border-radius: 4px;"><i class="fab fa-instagram" style="margin-right: 8px;"></i> Instagram</button>
+    <button style="background-color: #C13584; color: white; padding: 10px 15px; border: none; border-radius: 4px;">
+      <i class="fab fa-instagram" style="margin-right: 8px;"></i> Instagram
+    </button>
   </a>
 </div>
 
-    
 <footer>
   © 2025 Marshmallow.Projects — All rights reserved.
 </footer>
 
-<!--  Javascript for search button  -->
- <script>
-    function filterPDFs() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const listItems = document.querySelectorAll('#pdfList li');
-      const noResults = document.getElementById('noResults');
-      let found = false;
+<!--  Javascript for search button and share button  -->
+<script>
+  function filterPDFs() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const listItems = document.querySelectorAll('#pdfList li');
+    const noResults = document.getElementById('noResults');
+    let found = false;
 
-      listItems.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        const match = text.includes(input);
-        item.style.display = match ? '' : 'none';
-        if (match) found = true;
+    listItems.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      const match = text.includes(input);
+      item.style.display = match ? '' : 'none';
+      if (match) found = true;
+    });
+
+    noResults.style.display = found ? 'none' : 'block';
+  }
+
+  function sharePDF(filename) {
+    const fullURL = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '/') + filename;
+
+    if (navigator.share) {
+      navigator.share({
+        title: 'Scam Report PDF',
+        url: fullURL
+      }).catch(console.error);
+    } else {
+      navigator.clipboard.writeText(fullURL).then(() => {
+        alert('PDF link copied to clipboard!');
       });
-
-      noResults.style.display = found ? 'none' : 'block';
     }
-  </script>
+  }
+</script>
 <!-- End of Javascript code -->
 
 </body>
