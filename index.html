@@ -4,13 +4,20 @@
   <meta charset="UTF-8">
   <title>Marshmallow.Projects' Scam Reports</title>
 <!--  CSS code  -->
-    <style>
-    body {
-      font-family: Arial, sans-serif;
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
       background-color: #f7f9fc;
       color: #333;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
@@ -33,18 +40,27 @@
       width: 60%;
       padding: 10px;
       font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    #content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     ul {
       list-style: none;
       padding: 0;
       max-width: 800px;
-      margin: auto;
+      width: 90%;
     }
 
     li {
       background: white;
-      margin: 10px;
+      margin: 10px 0;
       padding: 15px;
       border-radius: 5px;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
@@ -60,15 +76,19 @@
       text-decoration: underline;
     }
 
+    #noResults {
+      display: none;
+      margin-top: 20px;
+      color: #888;
+      font-style: italic;
+    }
+
     footer {
       background-color: #004080;
       color: white;
       padding: 15px;
       text-align: center;
-      position: relative;
-      bottom: 0;
-      width: 100%;
-      margin-top: 40px;
+      font-size: 14px;
     }
   </style>
 <!-- End of CSS code -->
@@ -79,27 +99,38 @@
   <input type="text" id="searchInput" placeholder="Search Scam Report PDFs..." onkeyup="filterPDFs()" />
 </div>
   <h1>Scam Reports</h1>
+  <div id="content">
   <ul id="pdfList">
     <li><a href="omegatons.pdf" target="_blank">Omegatons</a></li>
     <li><a href="file2.pdf" target="_blank">File 2</a></li>
     <li><a href="file3.pdf" target="_blank">File 3</a></li>
   </ul>
+    <div id="noResults">No files found.</div>
+  </div>
+
+    
 <footer>
   © 2025 Marshmallow.Projects — All rights reserved.
 </footer>
 
 <!--  Javascript for search button  -->
-<script>
-  function filterPDFs() {
-    const input = document.getElementById('searchInput').value.toLowerCase();
-    const listItems = document.querySelectorAll('#pdfList li');
-    
-    listItems.forEach(item => {
-      const text = item.textContent.toLowerCase();
-      item.style.display = text.includes(input) ? '' : 'none';
-    });
-  }
-</script>
+ <script>
+    function filterPDFs() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const listItems = document.querySelectorAll('#pdfList li');
+      const noResults = document.getElementById('noResults');
+      let found = false;
+
+      listItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        const match = text.includes(input);
+        item.style.display = match ? '' : 'none';
+        if (match) found = true;
+      });
+
+      noResults.style.display = found ? 'none' : 'block';
+    }
+  </script>
 <!-- End of Javascript code -->
 
 </body>
