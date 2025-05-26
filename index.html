@@ -25,8 +25,38 @@
     header {
       background-color: #004080;
       color: white;
-      padding: 20px;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    header img {
+      height: 50px;
+      width: auto;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
       text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        padding: 15px 20px;
+      }
+
+      header img {
+        height: 40px;
+      }
+
+      header h1 {
+        font-size: 1.4rem;
+      }
     }
 
     h1 {
@@ -74,7 +104,12 @@
       color: #004080;
       display: flex;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 0;
+    }
+    .pdf-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .pdf-title i {
@@ -124,80 +159,86 @@
       text-align: center;
       font-size: 14px;
     }
+
+    /* New styles for social media buttons container and buttons */
+    .social-buttons-container {
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 30px; /* space before footer */
+    }
+
+    .social-button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .social-button.whatsapp {
+      background-color: #25D366;
+    }
+
+    .social-button.twitter {
+      background-color: #000000;
+    }
+
+    .social-button.instagram {
+      background-color: #C13584;
+    }
+
+    .social-button.facebook {
+      background-color: #1877F2;
+    }
   </style>
 <!-- End of CSS code -->
 
 </head>
 <body>
 
+<header>
+  <img src="logo.svg" alt="Logo" />
+  <h1>Scam Reports</h1>
+</header>
+
 <div class="search-container">
   <input type="text" id="searchInput" placeholder="Search Scam Report PDFs..." onkeyup="filterPDFs()" />
 </div>
 
-<h1>Scam Reports</h1>
-
 <div id="content">
   <ul id="pdfList">
-    <li>
-      <div class="pdf-title">
-        <i class="fas fa-file-pdf"></i> Omegatons
-      </div>
-      <div class="button-group">
-        <!-- View Button -->
-        <a href="omegatons.pdf" target="_blank">
-          <button class="view-btn"><i class="fas fa-eye"></i> View</button>
-        </a>
-        <!-- Download Button -->
-        <a href="omegatons.pdf" download>
-          <button class="download-btn"><i class="fas fa-download"></i> Download</button>
-        </a>
-        <!-- Share Button -->
-        <button class="share-btn" onclick="sharePDF('omegatons.pdf')"><i class="fas fa-share"></i> Share</button>
-      </div>
-    </li>
-
-    <li>
-      <div class="pdf-title">
-        <i class="fas fa-file-pdf"></i> File 2
-      </div>
-      <div class="button-group">
-        <a href="file2.pdf" target="_blank">
-          <button class="view-btn"><i class="fas fa-eye"></i> View</button>
-        </a>
-        <a href="file2.pdf" download>
-          <button class="download-btn"><i class="fas fa-download"></i> Download</button>
-        </a>
-        <button class="share-btn" onclick="sharePDF('file2.pdf')"><i class="fas fa-share"></i> Share</button>
-      </div>
-    </li>
   </ul>
-
-  <div id="noResults">No files found.</div>
+<div id="noResults">No files found.</div>
 </div>
 
-<!--  Social messaging for Scam research  -->
-<div style="text-align: center; margin-top: 40px;">
+<!--  Social Buttons  -->
+<div class="social-buttons-container">
   <p><strong>Need more Reports? Message us directly:</strong></p>
 
-  <a href="https://wa.me/97460011593" target="_blank" style="margin: 5px;">
-    <button style="background-color: #25D366; color: white; padding: 10px 15px; border: none; border-radius: 4px;">
-      <i class="fab fa-whatsapp" style="margin-right: 8px;"></i> WhatsApp
-    </button>
+  <a href="https://wa.me/97460011593" target="_blank" class="social-button whatsapp">
+    <i class="fab fa-whatsapp"></i> WhatsApp
   </a>
 
-  <a href="https://twitter.com/YourUsername" target="_blank" style="margin: 5px;">
-    <button style="background-color: #000000; color: white; padding: 10px 20px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer;">
-      <i class="fab fa-x-twitter" style="margin-right: 8px;"></i> X
-    </button>
+  <a href="https://x.com/MarshmallowProj" target="_blank" class="social-button twitter">
+    <i class="fab fa-x-twitter"></i> @MarshmallowProj
   </a>
 
-  <a href="https://instagram.com/YourUsername" target="_blank" style="margin: 5px;">
-    <button style="background-color: #C13584; color: white; padding: 10px 15px; border: none; border-radius: 4px;">
-      <i class="fab fa-instagram" style="margin-right: 8px;"></i> Instagram
-    </button>
+  <a href="https://www.facebook.com/Marshmallow.Projects" target="_blank" class="social-button facebook">
+    <i class="fab fa-facebook"></i> Marshmallow.Projects
+  </a>
+
+  <a href="https://www.instagram.com/marshmallow.projects/" target="_blank" class="social-button instagram">
+    <i class="fab fa-instagram"></i> @marshmallow.projects
   </a>
 </div>
 
+<!-- Footer -->
 <footer>
   © 2025 Marshmallow.Projects — All rights reserved.
 </footer>
@@ -211,7 +252,8 @@
     let found = false;
 
     listItems.forEach(item => {
-      const text = item.textContent.toLowerCase();
+      const titleElement = item.querySelector('.pdf-title');
+      const text = titleElement ? titleElement.textContent.toLowerCase() : '';
       const match = text.includes(input);
       item.style.display = match ? '' : 'none';
       if (match) found = true;
@@ -234,6 +276,79 @@
       });
     }
   }
+  </script>
+
+<script>
+  // Array of PDF objects
+  const pdfs = [
+    { title: "Omegatons", filename: "omegatons.pdf" },
+    // Add more PDFs here as needed
+  ];
+
+  // Function to generate PDF list items dynamically
+  function generatePDFList() {
+    const pdfList = document.getElementById('pdfList');
+    pdfList.innerHTML = ''; // Clear existing content
+
+    pdfs.forEach(pdf => {
+      const li = document.createElement('li');
+
+      const pdfItemDiv = document.createElement('div');
+      pdfItemDiv.className = 'pdf-item';
+
+      const pdfTitleDiv = document.createElement('div');
+      pdfTitleDiv.className = 'pdf-title';
+
+      const pdfLink = document.createElement('a');
+      pdfLink.href = pdf.filename;
+      pdfLink.target = '_blank';
+      pdfLink.innerHTML = '<i class="fas fa-file-pdf"></i>' + pdf.title;
+
+      pdfTitleDiv.appendChild(pdfLink);
+
+      const buttonGroupDiv = document.createElement('div');
+      buttonGroupDiv.className = 'button-group';
+
+      // View button
+      const viewLink = document.createElement('a');
+      viewLink.href = pdf.filename;
+      viewLink.target = '_blank';
+      const viewButton = document.createElement('button');
+      viewButton.className = 'view-btn';
+      viewButton.innerHTML = '<i class="fas fa-eye"></i> View';
+      viewLink.appendChild(viewButton);
+
+      // Download button
+      const downloadLink = document.createElement('a');
+      downloadLink.href = pdf.filename;
+      downloadLink.download = '';
+      const downloadButton = document.createElement('button');
+      downloadButton.className = 'download-btn';
+      downloadButton.innerHTML = '<i class="fas fa-download"></i> Download';
+      downloadLink.appendChild(downloadButton);
+
+      // Share button
+      const shareButton = document.createElement('button');
+      shareButton.className = 'share-btn';
+      shareButton.innerHTML = '<i class="fas fa-share"></i> Share';
+      shareButton.onclick = () => sharePDF(window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '/') + pdf.filename);
+
+      buttonGroupDiv.appendChild(viewLink);
+      buttonGroupDiv.appendChild(downloadLink);
+      buttonGroupDiv.appendChild(shareButton);
+
+      pdfItemDiv.appendChild(pdfTitleDiv);
+      pdfItemDiv.appendChild(buttonGroupDiv);
+
+      li.appendChild(pdfItemDiv);
+      pdfList.appendChild(li);
+    });
+  }
+
+  // Generate the PDF list on page load
+  window.onload = () => {
+    generatePDFList();
+  };
 </script>
 <!-- End of Javascript code -->
 
